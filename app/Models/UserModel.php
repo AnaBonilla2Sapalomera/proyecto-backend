@@ -73,8 +73,11 @@ class UserModel
         return $stmt->fetch();
     }
 
-    public function storePasswordResetToken(int $userId, string $tokenHash, string $expiresAt): void
-    {
+    public function storePasswordResetToken(
+        int $userId,
+        string $tokenHash,
+        string $expiresAt,
+    ): void {
         $this->connection->beginTransaction();
         try {
             $delete = $this->connection->prepare(

@@ -1,6 +1,7 @@
 <?php
 /**
  * @var ?string $error
+ * @var ?string $notice
  * @var array<string, string> $old
  */
 ?>

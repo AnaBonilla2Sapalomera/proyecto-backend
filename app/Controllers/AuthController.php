@@ -160,7 +160,7 @@ class AuthController
             $token = bin2hex(random_bytes(32));
             $expiresAt = gmdate("Y-m-d H:i:s", time() + 3600);
             $this->userModel->storePasswordResetToken(
-                (int) $user["id"],
+                $user["id"],
                 hash("sha256", $token),
                 $expiresAt,
             );

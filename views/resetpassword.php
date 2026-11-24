@@ -14,7 +14,9 @@
     <?php require "nav.php"; ?>
     <h1>Canviar la contrasenya</h1>
     <form action="index.php?action=resetpassword" method="post" class="form">
-        <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
+        <input type="hidden" name="token" value="<?= htmlspecialchars(
+            $token,
+        ) ?>">
         <label>
             Nova contrasenya
             <input type="password" name="password" autocomplete="new-password" required>

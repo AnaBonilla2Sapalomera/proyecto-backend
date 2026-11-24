@@ -117,18 +117,23 @@ class ArticleModel
      *
      * @return bool Si s'ha actualitzat.
      */
-    public function update(int $id, string $title, string $content): bool
-    {
+    public function update(
+        int $id,
+        int $userId,
+        string $title,
+        string $content,
+    ): bool {
         $sql = '
             UPDATE articles
             SET title = :title,
                 content = :content
-            WHERE id = :id
+            WHERE id = :id AND user_id = :user_id
         ';
 
         $statement = $this->connection->prepare($sql);
         return $statement->execute([
             ":id" => $id,
+            ":user_id" => $userId,
             ":title" => $title,
             ":content" => $content,
         ]);

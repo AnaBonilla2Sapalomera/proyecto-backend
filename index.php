@@ -70,6 +70,17 @@ switch ($action) {
         }
         break;
 
+    case "edit":
+        if ($method === "GET") {
+            $articleController->showEdit();
+        } elseif ($method === "POST") {
+            $articleController->update();
+        } else {
+            http_response_code(405);
+            exit("Method Not Allowed");
+        }
+        break;
+
     case "register":
         if ($method === "GET") {
             $authController->showRegister();
