@@ -3,16 +3,26 @@
 namespace App\Models;
 
 use PDO;
+use PDOException;
 
+/**
+ * Consulta i modifica els usuaris de la base de dades.
+ */
 class UserModel
 {
     private PDO $connection;
 
+    /**
+     * @param PDO $connection Connexió amb la base de dades.
+     */
     public function __construct(PDO $connection)
     {
         $this->connection = $connection;
     }
 
+    /**
+     * Cerca un usuari pel nom o l'adreça electrònica.
+     */
     public function findByUsernameOrEmail(string $value): mixed
     {
         $sql = "
@@ -27,6 +37,9 @@ class UserModel
         return $stmt->fetch();
     }
 
+    /**
+     * Comprova si el nom o el correu ja estan registrats.
+     */
     public function exists(string $username, string $email): bool
     {
         $sql = "
@@ -45,6 +58,10 @@ class UserModel
         return $stmt->fetch() !== false;
     }
 
+    /**
+     * Crea un usuari amb la contrasenya xifrada.
+     * @return bool Indica si s'ha creat.
+     */
     public function create(
         string $username,
         string $email,
@@ -64,6 +81,9 @@ class UserModel
         ]);
     }
 
+    /**
+     * Cerca un usuari per adreça electrònica.
+     */
     public function findByEmail(string $email): mixed
     {
         $stmt = $this->connection->prepare(
@@ -73,6 +93,9 @@ class UserModel
         return $stmt->fetch();
     }
 
+    /**
+     * Desa el token de recuperació i elimina els tokens anteriors.
+     */
     public function storePasswordResetToken(
         int $userId,
         string $tokenHash,
@@ -94,12 +117,15 @@ class UserModel
                 "expires_at" => $expiresAt,
             ]);
             $this->connection->commit();
-        } catch (\Throwable $exception) {
+        } catch (PDOException $exception) {
             $this->connection->rollBack();
             throw $exception;
         }
     }
 
+    /**
+     * Canvia la contrasenya si el token encara és vàlid.
+     */
     public function resetPassword(string $tokenHash, string $passwordHash): bool
     {
         $this->connection->beginTransaction();
@@ -127,7 +153,7 @@ class UserModel
             $delete->execute(["user_id" => $reset["user_id"]]);
             $this->connection->commit();
             return true;
-        } catch (\Throwable $exception) {
+        } catch (PDOException $exception) {
             $this->connection->rollBack();
             throw $exception;
         }

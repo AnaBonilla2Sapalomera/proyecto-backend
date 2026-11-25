@@ -2,12 +2,13 @@
 
 namespace App\Functions;
 
+/**
+ * Valida les dades dels formularis.
+ */
 class Validator
 {
     /**
-     * Comprova que tots els camps obligatoris continguin informació.
-     *
-     * @param array<string> $fields
+     * Comprova que els camps obligatoris no estiguin buits ni continguin espais.
      */
     public static function requiredFields(array $fields): bool
     {

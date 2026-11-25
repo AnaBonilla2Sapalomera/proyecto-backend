@@ -6,13 +6,16 @@ use App\Core\Session;
 use App\Functions\Validator;
 use App\Models\ArticleModel;
 
+/**
+ * Gestiona les accions relacionades amb els articles.
+ */
 class ArticleController
 {
     private ArticleModel $articleModel;
     private Session $session;
 
     /**
-     * Inicialitzar el controlador amb el model d'articles.
+     * Inicialitza el model d'articles i la sessió.
      */
     public function __construct(ArticleModel $articleModel, Session $session)
     {
@@ -21,7 +24,7 @@ class ArticleController
     }
 
     /**
-     * Mostra la llista de tots els articles.
+     * Mostra la llista paginada d'articles.
      */
     public function index(): void
     {
@@ -45,6 +48,9 @@ class ArticleController
         require __DIR__ . "/../../views/articles.php";
     }
 
+    /**
+     * Mostra el formulari per crear un article.
+     */
     public function showCreate(): void
     {
         if (!$this->session->isLoggedIn()) {
@@ -60,6 +66,9 @@ class ArticleController
         require __DIR__ . "/../../views/create.php";
     }
 
+    /**
+     * Valida i desa un article nou.
+     */
     public function create(): void
     {
         if (!$this->session->isLoggedIn()) {
@@ -89,6 +98,9 @@ class ArticleController
         header("Location: index.php?action=index");
     }
 
+    /**
+     * Mostra el formulari per editar un article propi.
+     */
     public function showEdit(): void
     {
         if (!$this->session->isLoggedIn()) {
@@ -110,6 +122,9 @@ class ArticleController
         require __DIR__ . "/../../views/edit.php";
     }
 
+    /**
+     * Valida i actualitza un article propi.
+     */
     public function update(): void
     {
         if (!$this->session->isLoggedIn()) {

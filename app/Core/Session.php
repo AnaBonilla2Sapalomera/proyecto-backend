@@ -2,6 +2,9 @@
 
 namespace App\Core;
 
+/**
+ * Gestiona la sessió i l'autenticació de l'usuari.
+ */
 class Session
 {
     private int $duration = 2400;

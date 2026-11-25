@@ -37,13 +37,13 @@ services:
   adminer:
     image: docker.io/library/adminer:latest
     depends_on:
-      db:
+      mariadb:
         condition: service_healthy
     ports:
       - target: 8080
         published: 8082
     environment:
-      ADMINER_DEFAULT_SERVER: db
+      ADMINER_DEFAULT_SERVER: mariadb
 
   mailpit:
     image: docker.io/axllent/mailpit:latest

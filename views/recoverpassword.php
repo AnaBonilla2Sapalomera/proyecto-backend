@@ -1,6 +1,8 @@
 <?php
-/** @var ?string $error */
-/** @var ?string $notice */
+/**
+ * @var ?string $error
+ * @var ?string $notice
+ */
 ?>
 <!DOCTYPE html>
 <html lang="ca">

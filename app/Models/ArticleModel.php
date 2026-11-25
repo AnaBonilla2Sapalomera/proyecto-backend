@@ -4,10 +4,16 @@ namespace App\Models;
 
 use PDO;
 
+/**
+ * Consulta i modifica els articles de la base de dades.
+ */
 class ArticleModel
 {
     private PDO $connection;
 
+    /**
+     * @param PDO $connection Connexió amb la base de dades.
+     */
     public function __construct(PDO $connection)
     {
         $this->connection = $connection;
@@ -15,9 +21,7 @@ class ArticleModel
 
     /**
      * Obtenir els articles paginats.
-     *
      * @param int $page Número de pàgina.
-     *
      * @return array<int, mixed> Articles de la pàgina actual.
      */
     public function getPaginated(int $page): array
@@ -41,9 +45,7 @@ class ArticleModel
 
     /**
      * Comprovar si hi ha articles en una pàgina.
-     *
      * @param int $page Número de pàgina.
-     *
      * @return bool Si hi ha aquesta pàgina.
      */
     public function pageHasItems(int $page): bool
@@ -67,9 +69,7 @@ class ArticleModel
 
     /**
      * Obtenir un article.
-     *
      * @param int $id Id del article.
-     *
      * @return array|false L'article o false.
      */
     public function getById(int $id): array|false
@@ -87,10 +87,8 @@ class ArticleModel
 
     /**
      * Crear un article.
-     *
      * @param string $title Títol del article.
      * @param string $content Contingut del article.
-     *
      * @return bool Si s'ha creat.
      */
     public function create(int $userId, string $title, string $content): bool
@@ -110,11 +108,9 @@ class ArticleModel
 
     /**
      * Actualitzar un article.
-     *
      * @param int $id Id del article.
      * @param string $title Títol del article.
      * @param string $content Contingut del article.
-     *
      * @return bool Si s'ha actualitzat.
      */
     public function update(
@@ -141,9 +137,7 @@ class ArticleModel
 
     /**
      * Eliminar un article.
-     *
      * @param int $id Id del article.
-     *
      * @return bool Si s'ha eliminat.
      */
     public function delete(int $id): bool

@@ -7,12 +7,18 @@ use App\Functions\Validator;
 use App\Models\UserModel;
 use App\Services\EmailService;
 
+/**
+ * Gestiona el registre, l'inici de sessió i les contrasenyes.
+ */
 class AuthController
 {
     private UserModel $userModel;
     private Session $session;
     private EmailService $emailService;
 
+    /**
+     * Inicialitza les dependències del controlador.
+     */
     public function __construct(
         UserModel $userModel,
         Session $session,
@@ -23,6 +29,9 @@ class AuthController
         $this->emailService = $emailService;
     }
 
+    /**
+     * Mostra el formulari de registre.
+     */
     public function showRegister(): void
     {
         $error = $_SESSION["error"] ?? null;
@@ -33,6 +42,9 @@ class AuthController
         require __DIR__ . "/../../views/register.php";
     }
 
+    /**
+     * Valida i registra un usuari.
+     */
     public function register(): void
     {
         $username = trim($_POST["username"] ?? "");
@@ -94,6 +106,9 @@ class AuthController
         header("Location: index.php?action=index");
     }
 
+    /**
+     * Mostra el formulari d'inici de sessió.
+     */
     public function showLogin(): void
     {
         $error = $_SESSION["error"] ?? null;
@@ -105,6 +120,9 @@ class AuthController
         require __DIR__ . "/../../views/login.php";
     }
 
+    /**
+     * Valida les credencials i inicia la sessió.
+     */
     public function login(): void
     {
         $email = trim($_POST["email"] ?? "");
@@ -138,6 +156,9 @@ class AuthController
         header("Location: index.php?action=index");
     }
 
+    /**
+     * Mostra el formulari de recuperació de contrasenya.
+     */
     public function showRecoverPassword(): void
     {
         $error = $_SESSION["error"] ?? null;
@@ -146,6 +167,9 @@ class AuthController
         require __DIR__ . "/../../views/recoverpassword.php";
     }
 
+    /**
+     * Envia un enllaç per recuperar la contrasenya.
+     */
     public function requestPasswordRecovery(): void
     {
         $email = trim($_POST["email"] ?? "");
@@ -196,6 +220,9 @@ class AuthController
         header("Location: index.php?action=recoverpassword");
     }
 
+    /**
+     * Mostra el formulari per establir una contrasenya nova.
+     */
     public function showResetPassword(): void
     {
         $error = $_SESSION["error"] ?? null;
@@ -204,6 +231,9 @@ class AuthController
         require __DIR__ . "/../../views/resetpassword.php";
     }
 
+    /**
+     * Valida el token i actualitza la contrasenya.
+     */
     public function resetPassword(): void
     {
         $token = $_POST["token"] ?? "";
@@ -240,18 +270,27 @@ class AuthController
         );
     }
 
+    /**
+     * Tanca la sessió de l'usuari.
+     */
     public function logout(): void
     {
         $this->session->destroy();
         header("Location: index.php?action=index");
     }
 
+    /**
+     * Desa l'error de registre i torna al formulari.
+     */
     private function setRegisterError(string $message): void
     {
         $_SESSION["error"] = $message;
         header("Location: index.php?action=register");
     }
 
+    /**
+     * Desa l'error d'inici de sessió i torna al formulari.
+     */
     private function setLoginError(string $message): void
     {
         $_SESSION["error"] = $message;

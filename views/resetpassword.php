@@ -1,6 +1,8 @@
 <?php
-/** @var ?string $error */
-/** @var string $token */
+/**
+ * @var ?string $error
+ * @var string $token
+ */
 ?>
 <!DOCTYPE html>
 <html lang="ca">

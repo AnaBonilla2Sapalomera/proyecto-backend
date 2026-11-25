@@ -6,10 +6,16 @@ use Exception;
 use PDO;
 use PDOException;
 
+/**
+ * Gestiona la connexió amb la base de dades.
+ */
 class Database
 {
     private ?PDO $connection = null;
 
+    /**
+     * Retorna la connexió PDO, creant-la si cal.
+     */
     public function connect(): PDO
     {
         if ($this->connection === null) {
