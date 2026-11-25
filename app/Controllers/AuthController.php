@@ -53,36 +53,36 @@ class AuthController
                 $confirmPassword,
             ])
         ) {
-            $this->setRegisterError("Todos los campos son obligatorios.");
+            $this->setRegisterError("Tots els camps són obligatoris.");
             return;
         }
 
         if (!Validator::email($email)) {
-            $this->setRegisterError("El correo electrónico no es válido.");
+            $this->setRegisterError("L'adreça electrònica no és vàlida.");
             return;
         }
 
         if (!Validator::passwordConfirmation($password, $confirmPassword)) {
-            $this->setRegisterError("Las contraseñas no coinciden.");
+            $this->setRegisterError("Les contrasenyes no coincideixen.");
             return;
         }
 
         if (!Validator::passwordStrength($password)) {
             $this->setRegisterError(
-                "La contraseña debe tener al menos 10 caracteres, mayúsculas, minúsculas, números y símbolos.",
+                "La contrasenya ha de tenir com a mínim 10 caràcters, lletres majúscules i minúscules, números i símbols.",
             );
             return;
         }
 
         if ($this->userModel->exists($username, $email)) {
-            $this->setRegisterError("El usuario o correo ya está registrado.");
+            $this->setRegisterError("El nom d'usuari o l'adreça electrònica ja està registrat.");
             return;
         }
 
         $hashedPassword = password_hash($password, PASSWORD_ARGON2ID);
 
         if (!$this->userModel->create($username, $email, $hashedPassword)) {
-            $this->setRegisterError("No se ha podido completar el registro.");
+            $this->setRegisterError("No s'ha pogut completar el registre.");
             return;
         }
 
@@ -115,19 +115,19 @@ class AuthController
         ];
 
         if (!Validator::requiredFields([$email, $password])) {
-            $this->setLoginError("Todos los campos son obligatorios.");
+            $this->setLoginError("Tots els camps són obligatoris.");
             return;
         }
 
         if (!Validator::email($email)) {
-            $this->setLoginError("El correo electrónico no es válido.");
+            $this->setLoginError("L'adreça electrònica no és vàlida.");
             return;
         }
 
         $user = $this->userModel->findByUsernameOrEmail($email);
 
         if (!$user || !password_verify($password, $user["password"])) {
-            $this->setLoginError("El correo o la contraseña son incorrectos.");
+            $this->setLoginError("L'adreça electrònica o la contrasenya són incorrectes.");
             return;
         }
 
@@ -150,7 +150,7 @@ class AuthController
     {
         $email = trim($_POST["email"] ?? "");
         if (!Validator::email($email)) {
-            $_SESSION["error"] = "Introduce un correo electrónico válido.";
+            $_SESSION["error"] = "Introdueix una adreça electrònica vàlida.";
             header("Location: index.php?action=recoverpassword");
             return;
         }
@@ -172,27 +172,27 @@ class AuthController
                 "<p>Hola " .
                 htmlspecialchars($user["username"], ENT_QUOTES, "UTF-8") .
                 ",</p>" .
-                "<p>Recibimos una solicitud para cambiar la contraseña de tu cuenta. " .
+                "<p>Hem rebut una sol·licitud per canviar la contrasenya del teu compte. " .
                 "<a href=\"" .
                 htmlspecialchars($resetUrl, ENT_QUOTES, "UTF-8") .
-                "\">Cámbiala aquí</a>.</p>" .
-                "<p>El enlace caduca en una hora. Si no solicitaste este cambio, ignora este correo.</p>";
+                "\">Canvia-la aquí</a>.</p>" .
+                "<p>L'enllaç caduca d'aquí a una hora. Si no has demanat aquest canvi, ignora aquest correu.</p>";
             if (
                 !$this->emailService->sendEmail(
                     $user["email"],
-                    "Recuperar contraseña",
+                    "Recuperar la contrasenya",
                     $message,
                 )
             ) {
                 error_log(
-                    "No se pudo enviar el correo de recuperación para el usuario " .
+                    "No s'ha pogut enviar el correu de recuperació per a l'usuari " .
                         $user["id"],
                 );
             }
         }
 
         $_SESSION["notice"] =
-            "Si existe una cuenta con ese correo, recibirás un enlace para cambiar la contraseña.";
+            "Si existeix un compte amb aquesta adreça electrònica, rebràs un enllaç per canviar la contrasenya.";
         header("Location: index.php?action=recoverpassword");
     }
 
@@ -211,14 +211,14 @@ class AuthController
         $confirmPassword = $_POST["confirmPassword"] ?? "";
 
         if (!Validator::requiredFields([$token, $password, $confirmPassword])) {
-            $_SESSION["error"] = "Todos los campos son obligatorios.";
+            $_SESSION["error"] = "Tots els camps són obligatoris.";
         } elseif (
             !Validator::passwordConfirmation($password, $confirmPassword)
         ) {
-            $_SESSION["error"] = "Las contraseñas no coinciden.";
+            $_SESSION["error"] = "Les contrasenyes no coincideixen.";
         } elseif (!Validator::passwordStrength($password)) {
             $_SESSION["error"] =
-                "La contraseña debe tener al menos 10 caracteres, mayúsculas, minúsculas, números y símbolos.";
+                "La contrasenya ha de tenir com a mínim 10 caràcters, lletres majúscules i minúscules, números i símbols.";
         } elseif (
             !$this->userModel->resetPassword(
                 hash("sha256", $token),
@@ -226,10 +226,10 @@ class AuthController
             )
         ) {
             $_SESSION["error"] =
-                "El enlace no es válido o ha caducado. Solicita uno nuevo.";
+                "L'enllaç no és vàlid o ha caducat. Demana'n un de nou.";
         } else {
             $_SESSION["notice"] =
-                "Contraseña actualizada. Ya puedes iniciar sesión.";
+                "Contrasenya actualitzada. Ja pots iniciar sessió.";
             header("Location: index.php?action=login");
             return;
         }

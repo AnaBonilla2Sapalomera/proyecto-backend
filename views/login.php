@@ -45,7 +45,7 @@
         <?php endif; ?>
 
         <a href="index.php?action=recoverpassword">Recuperar la contrasenya</a>
-        <a href="index.php?action=register">No tens compte? Registrat</a>
+        <a href="index.php?action=register">No tens compte? Registra-t'hi</a>
 
     </form>
 

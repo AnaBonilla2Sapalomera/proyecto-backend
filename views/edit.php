@@ -37,8 +37,8 @@ $content = $old["content"] ?? $article["content"];
         <?php if (isset($error)): ?>
             <p class="form-error"><?= htmlspecialchars($error) ?></p>
         <?php endif; ?>
-        <button type="submit" class="form-button">Guardar cambios</button>
-        <a href="index.php?action=index">Cancelar</a>
+        <button type="submit" class="form-button">Desar els canvis</button>
+        <a href="index.php?action=index">Cancel·lar</a>
     </form>
 </body>
 </html>

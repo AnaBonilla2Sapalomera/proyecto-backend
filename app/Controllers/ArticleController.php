@@ -77,7 +77,7 @@ class ArticleController
         ];
 
         if (!Validator::requiredFields($title, $content)) {
-            $_SESSION["error"] = "El título y el contenido son obligatorios.";
+            $_SESSION["error"] = "El títol i el contingut són obligatoris.";
             header("Location: index.php?action=create");
             return;
         }
@@ -131,13 +131,13 @@ class ArticleController
         $_SESSION["old"] = ["title" => $title, "content" => $content];
 
         if (!Validator::requiredFields($title, $content)) {
-            $_SESSION["error"] = "El título y el contenido son obligatorios.";
+            $_SESSION["error"] = "El títol i el contingut són obligatoris.";
             header("Location: index.php?action=edit&id=$id");
             return;
         }
 
         if (!$this->articleModel->update($id, $userId, $title, $content)) {
-            $_SESSION["error"] = "No se ha podido actualizar el artículo.";
+            $_SESSION["error"] = "No s'ha pogut actualitzar l'article.";
             header("Location: index.php?action=edit&id=$id");
             return;
         }
