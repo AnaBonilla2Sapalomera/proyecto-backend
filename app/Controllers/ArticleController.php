@@ -159,4 +159,26 @@ class ArticleController
 
         header("Location: index.php?action=index");
     }
+
+    /**
+     * Elimina un article propi.
+     */
+    public function delete(): void
+    {
+        if (!$this->session->isLoggedIn()) {
+            header("Location: index.php?action=login");
+            return;
+        }
+
+        $id = filter_input(INPUT_POST, "id", FILTER_VALIDATE_INT);
+        if (!$id || $id <= 0) {
+            header("Location: index.php?page=1");
+            return;
+        }
+
+        $userId = $this->session->getUserId();
+        $this->articleModel->delete($id, $userId);
+
+        header("Location: index.php?action=index");
+    }
 }

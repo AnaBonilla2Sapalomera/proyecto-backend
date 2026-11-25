@@ -81,6 +81,15 @@ switch ($action) {
         }
         break;
 
+    case "delete":
+        if ($method !== "POST") {
+            http_response_code(405);
+            exit("Method Not Allowed");
+        }
+
+        $articleController->delete();
+        break;
+
     case "register":
         if ($method === "GET") {
             $authController->showRegister();
