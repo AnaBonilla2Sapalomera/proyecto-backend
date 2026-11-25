@@ -6,6 +6,7 @@ use App\Core\Database;
 use App\Core\Session;
 use App\Controllers\ArticleController;
 use App\Controllers\AuthController;
+use App\Controllers\PasswordRecoveryController;
 use App\Models\ArticleModel;
 use App\Models\UserModel;
 use App\Services\EmailService;
@@ -37,6 +38,9 @@ $articleController = new ArticleController(
 $authController = new AuthController(
     new UserModel($connection),
     $session,
+);
+$passwordRecoveryController = new PasswordRecoveryController(
+    new UserModel($connection),
     $emailService,
 );
 
@@ -114,9 +118,9 @@ switch ($action) {
 
     case "recoverpassword":
         if ($method === "GET") {
-            $authController->showRecoverPassword();
+            $passwordRecoveryController->showRecoverPassword();
         } elseif ($method === "POST") {
-            $authController->requestPasswordRecovery();
+            $passwordRecoveryController->requestPasswordRecovery();
         } else {
             http_response_code(405);
             exit("Method Not Allowed");
@@ -125,9 +129,9 @@ switch ($action) {
 
     case "resetpassword":
         if ($method === "GET") {
-            $authController->showResetPassword();
+            $passwordRecoveryController->showResetPassword();
         } elseif ($method === "POST") {
-            $authController->resetPassword();
+            $passwordRecoveryController->resetPassword();
         } else {
             http_response_code(405);
             exit("Method Not Allowed");
