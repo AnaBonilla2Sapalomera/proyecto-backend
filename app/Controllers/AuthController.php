@@ -18,6 +18,9 @@ class AuthController
 
     /**
      * Inicialitza les dependències del controlador.
+     * @param UserModel $userModel Model que consulta i desa els usuaris.
+     * @param Session $session Servei que gestiona la sessió de l'usuari.
+     * @param EmailService $emailService Servei que envia els correus electrònics.
      */
     public function __construct(
         UserModel $userModel,
@@ -281,6 +284,7 @@ class AuthController
 
     /**
      * Desa l'error de registre i torna al formulari.
+     * @param string $message Missatge d'error de registre que es desa a la sessió.
      */
     private function setRegisterError(string $message): void
     {
@@ -290,6 +294,7 @@ class AuthController
 
     /**
      * Desa l'error d'inici de sessió i torna al formulari.
+     * @param string $message Missatge d'error d'inici de sessió que es desa a la sessió.
      */
     private function setLoginError(string $message): void
     {

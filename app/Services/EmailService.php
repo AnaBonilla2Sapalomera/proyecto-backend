@@ -24,6 +24,9 @@ class EmailService
 
     /**
      * Envia un correu en format text i HTML.
+     * @param string $recipient Adreça electrònica del destinatari.
+     * @param string $subject Assumpte del missatge.
+     * @param string $message Contingut HTML del missatge.
      * @return bool Indica si s'ha pogut enviar.
      */
     public function sendEmail(

@@ -9,6 +9,8 @@ class Validator
 {
     /**
      * Comprova que els camps obligatoris no estiguin buits ni continguin espais.
+     * @param array<string> $fields Valors dels camps obligatoris.
+     * @return bool Indica si tots els camps contenen informació.
      */
     public static function requiredFields(array $fields): bool
     {
@@ -23,6 +25,8 @@ class Validator
 
     /**
      * Comprova que el correu electrònic tingui un format vàlid.
+     * @param string $email Adreça electrònica que es vol validar.
+     * @return bool Indica si el format és vàlid.
      */
     public static function email(string $email): bool
     {
@@ -31,6 +35,9 @@ class Validator
 
     /**
      * Comprova que les dues contrasenyes coincideixin.
+     * @param string $password Contrasenya introduïda.
+     * @param string $confirmPassword Confirmació de la contrasenya.
+     * @return bool Indica si les dues contrasenyes coincideixen.
      */
     public static function passwordConfirmation(
         string $password,
@@ -41,6 +48,8 @@ class Validator
 
     /**
      * Comprova que la contrasenya compleixi els requisits de seguretat.
+     * @param string $password Contrasenya que es vol validar.
+     * @return bool Indica si compleix els requisits de seguretat.
      */
     public static function passwordStrength(string $password): bool
     {

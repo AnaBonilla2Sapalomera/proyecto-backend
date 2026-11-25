@@ -15,6 +15,7 @@ class Database
 
     /**
      * Retorna la connexió PDO, creant-la si cal.
+     * @return PDO Connexió configurada amb la base de dades.
      */
     public function connect(): PDO
     {

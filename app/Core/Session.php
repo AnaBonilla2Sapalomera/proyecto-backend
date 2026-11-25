@@ -58,7 +58,9 @@ class Session
     }
 
     /**
-     * Iniciar una sessió.
+     * Desa les dades d'autenticació de l'usuari a la sessió.
+     * @param int $userId Identificador de l'usuari autenticat.
+     * @param string $username Nom de l'usuari autenticat.
      */
     public function login(int $userId, string $username): void
     {
@@ -95,6 +97,7 @@ class Session
 
     /**
      * Comprova si hi ha un usuari autenticat.
+     * @return bool Indica si hi ha un identificador d'usuari a la sessió.
      */
     public function isLoggedIn(): bool
     {
@@ -103,6 +106,7 @@ class Session
 
     /**
      * Retorna l'ID de l'usuari actual.
+     * @return int|null Identificador de l'usuari o null si no està autenticat.
      */
     public function getUserId(): ?int
     {
@@ -111,6 +115,7 @@ class Session
 
     /**
      * Retorna el nom d'usuari de l'usuari actual.
+     * @return string|null Nom d'usuari o null si no està autenticat.
      */
     public function getUserName(): ?string
     {

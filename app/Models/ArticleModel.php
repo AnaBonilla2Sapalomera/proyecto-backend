@@ -21,7 +21,7 @@ class ArticleModel
 
     /**
      * Obtenir els articles paginats.
-     * @param int $page Número de pàgina.
+     * @param int $page Número de pàgina que es vol consultar.
      * @return array<int, mixed> Articles de la pàgina actual.
      */
     public function getPaginated(int $page): array
@@ -45,7 +45,7 @@ class ArticleModel
 
     /**
      * Comprovar si hi ha articles en una pàgina.
-     * @param int $page Número de pàgina.
+     * @param int $page Número de pàgina que es vol consultar.
      * @return bool Si hi ha aquesta pàgina.
      */
     public function pageHasItems(int $page): bool
@@ -69,7 +69,7 @@ class ArticleModel
 
     /**
      * Obtenir un article.
-     * @param int $id Id del article.
+     * @param int $id Identificador de l'article.
      * @return array|false L'article o false.
      */
     public function getById(int $id): array|false
@@ -87,6 +87,7 @@ class ArticleModel
 
     /**
      * Crear un article.
+     * @param int $userId Identificador de l'autor.
      * @param string $title Títol del article.
      * @param string $content Contingut del article.
      * @return bool Si s'ha creat.
@@ -109,6 +110,7 @@ class ArticleModel
     /**
      * Actualitzar un article.
      * @param int $id Id del article.
+     * @param int $userId Identificador de l'autor de l'article.
      * @param string $title Títol del article.
      * @param string $content Contingut del article.
      * @return bool Si s'ha actualitzat.

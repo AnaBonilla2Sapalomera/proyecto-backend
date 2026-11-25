@@ -16,6 +16,8 @@ class ArticleController
 
     /**
      * Inicialitza el model d'articles i la sessió.
+     * @param ArticleModel $articleModel Model que consulta i modifica els articles.
+     * @param Session $session Servei que comprova l'estat de la sessió.
      */
     public function __construct(ArticleModel $articleModel, Session $session)
     {

@@ -22,6 +22,8 @@ class UserModel
 
     /**
      * Cerca un usuari pel nom o l'adreça electrònica.
+     * @param string $value Nom d'usuari o correu electrònic que es vol cercar.
+     * @return array<string, mixed>|false Dades de l'usuari o false si no existeix.
      */
     public function findByUsernameOrEmail(string $value): mixed
     {
@@ -39,6 +41,9 @@ class UserModel
 
     /**
      * Comprova si el nom o el correu ja estan registrats.
+     * @param string $username Nom d'usuari que es vol comprovar.
+     * @param string $email Correu electrònic que es vol comprovar.
+     * @return bool Indica si algun dels dos valors ja existeix.
      */
     public function exists(string $username, string $email): bool
     {
@@ -60,6 +65,9 @@ class UserModel
 
     /**
      * Crea un usuari amb la contrasenya xifrada.
+     * @param string $username Nom del nou usuari.
+     * @param string $email Correu electrònic del nou usuari.
+     * @param string $password Contrasenya xifrada que es desa al compte.
      * @return bool Indica si s'ha creat.
      */
     public function create(
@@ -83,6 +91,8 @@ class UserModel
 
     /**
      * Cerca un usuari per adreça electrònica.
+     * @param string $email Correu electrònic que es vol cercar.
+     * @return array<string, mixed>|false Dades bàsiques de l'usuari o false si no existeix.
      */
     public function findByEmail(string $email): mixed
     {
@@ -95,6 +105,9 @@ class UserModel
 
     /**
      * Desa el token de recuperació i elimina els tokens anteriors.
+     * @param int $userId Identificador de l'usuari.
+     * @param string $tokenHash Hash del token de recuperació.
+     * @param string $expiresAt Data i hora de caducitat del token.
      */
     public function storePasswordResetToken(
         int $userId,
@@ -125,6 +138,9 @@ class UserModel
 
     /**
      * Canvia la contrasenya si el token encara és vàlid.
+     * @param string $tokenHash Hash del token rebut.
+     * @param string $passwordHash Nova contrasenya xifrada.
+     * @return bool Indica si s'ha actualitzat la contrasenya.
      */
     public function resetPassword(string $tokenHash, string $passwordHash): bool
     {
