@@ -83,7 +83,7 @@ class ArticleController
             "content" => $content,
         ];
 
-        if (!Validator::requiredFields($title, $content)) {
+        if (!Validator::requiredFields([$title, $content])) {
             $_SESSION["error"] = "El títol i el contingut són obligatoris.";
             header("Location: index.php?action=create");
             return;
@@ -143,7 +143,7 @@ class ArticleController
 
         $_SESSION["old"] = ["title" => $title, "content" => $content];
 
-        if (!Validator::requiredFields($title, $content)) {
+        if (!Validator::requiredFields([$title, $content])) {
             $_SESSION["error"] = "El títol i el contingut són obligatoris.";
             header("Location: index.php?action=edit&id=$id");
             return;
