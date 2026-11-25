@@ -11,19 +11,15 @@ use App\Models\ArticleModel;
  */
 class ArticleController
 {
-    private ArticleModel $articleModel;
-    private Session $session;
-
     /**
      * Inicialitza el model d'articles i la sessió.
      * @param ArticleModel $articleModel Model que consulta i modifica els articles.
      * @param Session $session Servei que comprova l'estat de la sessió.
      */
-    public function __construct(ArticleModel $articleModel, Session $session)
-    {
-        $this->articleModel = $articleModel;
-        $this->session = $session;
-    }
+    public function __construct(
+        private ArticleModel $articleModel,
+        private Session $session,
+    ) {}
 
     /**
      * Mostra la llista paginada d'articles.

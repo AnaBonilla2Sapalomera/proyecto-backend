@@ -12,15 +12,12 @@ use Symfony\Component\Mime\Email;
  */
 class EmailService
 {
-    private MailerInterface $mailer;
-
     /**
      * @param MailerInterface $mailer Servei de transport de correu.
      */
-    public function __construct(MailerInterface $mailer)
-    {
-        $this->mailer = $mailer;
-    }
+    public function __construct(
+        private MailerInterface $mailer,
+    ) {}
 
     /**
      * Envia un correu en format text i HTML.

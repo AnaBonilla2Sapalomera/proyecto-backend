@@ -10,15 +10,10 @@ use PDOException;
  */
 class UserModel
 {
-    private PDO $connection;
-
     /**
      * @param PDO $connection Connexió amb la base de dades.
      */
-    public function __construct(PDO $connection)
-    {
-        $this->connection = $connection;
-    }
+    public function __construct(private PDO $connection) {}
 
     /**
      * Cerca un usuari pel nom o l'adreça electrònica.

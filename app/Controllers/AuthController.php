@@ -12,10 +12,6 @@ use App\Services\EmailService;
  */
 class AuthController
 {
-    private UserModel $userModel;
-    private Session $session;
-    private EmailService $emailService;
-
     /**
      * Inicialitza les dependències del controlador.
      * @param UserModel $userModel Model que consulta i desa els usuaris.
@@ -23,14 +19,10 @@ class AuthController
      * @param EmailService $emailService Servei que envia els correus electrònics.
      */
     public function __construct(
-        UserModel $userModel,
-        Session $session,
-        EmailService $emailService,
-    ) {
-        $this->userModel = $userModel;
-        $this->session = $session;
-        $this->emailService = $emailService;
-    }
+        private UserModel $userModel,
+        private Session $session,
+        private EmailService $emailService,
+    ) {}
 
     /**
      * Mostra el formulari de registre.
@@ -90,7 +82,9 @@ class AuthController
         }
 
         if ($this->userModel->exists($username, $email)) {
-            $this->setRegisterError("El nom d'usuari o l'adreça electrònica ja està registrat.");
+            $this->setRegisterError(
+                "El nom d'usuari o l'adreça electrònica ja està registrat.",
+            );
             return;
         }
 
@@ -148,7 +142,9 @@ class AuthController
         $user = $this->userModel->findByUsernameOrEmail($email);
 
         if (!$user || !password_verify($password, $user["password"])) {
-            $this->setLoginError("L'adreça electrònica o la contrasenya són incorrectes.");
+            $this->setLoginError(
+                "L'adreça electrònica o la contrasenya són incorrectes.",
+            );
             return;
         }
 

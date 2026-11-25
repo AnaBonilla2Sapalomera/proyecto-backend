@@ -9,15 +9,10 @@ use PDO;
  */
 class ArticleModel
 {
-    private PDO $connection;
-
     /**
      * @param PDO $connection Connexió amb la base de dades.
      */
-    public function __construct(PDO $connection)
-    {
-        $this->connection = $connection;
-    }
+    public function __construct(private PDO $connection) {}
 
     /**
      * Obtenir els articles paginats.
@@ -140,16 +135,17 @@ class ArticleModel
     /**
      * Eliminar un article.
      * @param int $id Id del article.
+     * @param int $userId Id de l'usuari.
      * @return bool Si s'ha eliminat.
      */
-    public function delete(int $id): bool
+    public function delete(int $id, int $userId): bool
     {
         $sql = '
             DELETE FROM articles
-            WHERE id = :id
+            WHERE id = :id AND user_id = :user_id
         ';
 
         $statement = $this->connection->prepare($sql);
-        return $statement->execute([":id" => $id]);
+        return $statement->execute([":id" => $id, ":user_id" => $userId]);
     }
 }
