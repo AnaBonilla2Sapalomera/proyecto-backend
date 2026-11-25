@@ -25,7 +25,7 @@
                 type="text"
                 name="username"
                 value="<?= htmlspecialchars(
-                    $_SESSION["old"]["username"] ?? "",
+                    $old["username"] ?? "",
                 ) ?>"
                 required
             >
@@ -36,7 +36,7 @@
             <input
                 type="email"
                 name="email"
-                value="<?= htmlspecialchars($_SESSION["old"]["email"] ?? "") ?>"
+                value="<?= htmlspecialchars($old["email"] ?? "") ?>"
                 required
             >
         </label>

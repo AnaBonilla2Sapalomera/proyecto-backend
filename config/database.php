@@ -1,7 +1,7 @@
 <?php
 
 return [
-    "dsn" => "mysql:host=db;dbname=pt04_ana_bonilla;charset=utf8mb4",
-    "username" => "root",
-    "password" => "root",
+    "dsn" => $_ENV["DATABASE_DSN"],
+    "username" => $_ENV["DATABASE_USERNAME"],
+    "password" => $_ENV["DATABASE_PASSWORD"],
 ];

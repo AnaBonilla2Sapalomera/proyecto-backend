@@ -25,7 +25,7 @@
             <input
                 type="text"
                 name="email"
-                value="<?= htmlspecialchars($_SESSION["old"]["email"] ?? "") ?>"
+                value="<?= htmlspecialchars($old["email"] ?? "") ?>"
                 required
             >
         </label>
