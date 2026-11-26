@@ -11,12 +11,12 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>PrjF1 Ana - Crear article</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <?php require 'nav.php'; ?>
     <h1>Crear article</h1>
-    <form action="index.php?action=create" method="post" class="form">
+    <form action="/article/create" method="post" class="form">
         <label>
             <span>Títol</span>
             <input

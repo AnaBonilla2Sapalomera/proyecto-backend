@@ -10,13 +10,13 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>PrjF1 Ana - Recuperar contrasenya</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <?php require 'nav.php'; ?>
     <h1>Recuperar la contrasenya</h1>
     <p>Introdueix el correu del teu compte i t'enviarem un enllaç per canviar-la.</p>
-    <form action="index.php?action=recoverpassword" method="post" class="form">
+    <form action="/recover-password" method="post" class="form">
         <label>
             Correu electrònic
             <input type="email" name="email" autocomplete="email" required>
@@ -28,7 +28,7 @@
         <?php if (isset($notice)) { ?>
             <p><?= htmlspecialchars($notice); ?></p>
         <?php } ?>
-        <a href="index.php?action=login">Tornar a iniciar sessió</a>
+        <a href="/login">Tornar a iniciar sessió</a>
     </form>
 </body>
 </html>

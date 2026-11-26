@@ -12,13 +12,13 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>PrjF1 Ana - Iniciar sessió</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <?php require 'nav.php'; ?>
     <h1>Iniciar sessió</h1>
 
-    <form action="index.php?action=login" method="post" class="form">
+    <form action="/login" method="post" class="form">
 
         <label>
             Correu electrònic
@@ -44,8 +44,8 @@
             <p><?= htmlspecialchars($notice); ?></p>
         <?php } ?>
 
-        <a href="index.php?action=recoverpassword">Recuperar la contrasenya</a>
-        <a href="index.php?action=register">No tens compte? Registra-t'hi</a>
+        <a href="/recover-password">Recuperar la contrasenya</a>
+        <a href="/register">No tens compte? Registra-t'hi</a>
 
     </form>
 

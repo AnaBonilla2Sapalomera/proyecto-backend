@@ -27,7 +27,7 @@ $nextDisabled = !$nextPageHasArticles;
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>PrjF1 Ana - Llista d'articles</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <?php require 'nav.php'; ?>
@@ -55,11 +55,11 @@ $nextDisabled = !$nextPageHasArticles;
                             && $GLOBALS['session']->getUserId()
                                 == $article['user_id']
                         ) { ?>
-                            <a href="?action=edit&id=<?= $article[
+                            <a href="/article/edit?id=<?= $article[
                                 'id'
                             ]; ?>">Editar</a>
                             -
-                            <form action="index.php?action=delete" method="post" style="display: inline">
+                            <form action="/article/delete" method="post" style="display: inline">
                                 <input type="hidden" name="id" value="<?= htmlspecialchars(
                                     $article['id'],
                                 ); ?>">

@@ -104,7 +104,7 @@ class AuthController
         $user = $this->userModel->findByUsernameOrEmail($email);
         $this->session->login($user['id'], $user['username']);
 
-        header('Location: index.php?action=index');
+        header('Location: /');
     }
 
     /**
@@ -159,7 +159,7 @@ class AuthController
 
         $this->session->login($user['id'], $user['username']);
 
-        header('Location: index.php?action=index');
+        header('Location: /');
     }
 
     /**
@@ -168,7 +168,7 @@ class AuthController
     public function logout(): void
     {
         $this->session->destroy();
-        header('Location: index.php?action=index');
+        header('Location: /');
     }
 
     /**
@@ -179,7 +179,7 @@ class AuthController
     private function setRegisterError(string $message): void
     {
         $_SESSION['error'] = $message;
-        header('Location: index.php?action=register');
+        header('Location: /register');
     }
 
     /**
@@ -190,6 +190,6 @@ class AuthController
     private function setLoginError(string $message): void
     {
         $_SESSION['error'] = $message;
-        header('Location: index.php?action=login');
+        header('Location: /login');
     }
 }

@@ -35,7 +35,7 @@ class PasswordRecoveryController
         $email = trim($_POST['email'] ?? '');
         if (!Validator::email($email)) {
             $_SESSION['error'] = 'Introdueix una adreça electrònica vàlida.';
-            header('Location: index.php?action=recoverpassword');
+            header('Location: /recover-password');
 
             return;
         }
@@ -51,7 +51,7 @@ class PasswordRecoveryController
             );
 
             $resetUrl
-                = 'http://localhost:8081/index.php?action=resetpassword&token='
+                = 'http://localhost:8081/reset-password?token='
                 . urlencode($token);
             $message
                 = '<p>Hola '
@@ -78,7 +78,7 @@ class PasswordRecoveryController
 
         $_SESSION['notice']
             = 'Si existeix un compte amb aquesta adreça electrònica, rebràs un enllaç per canviar la contrasenya.';
-        header('Location: index.php?action=recoverpassword');
+        header('Location: /recover-password');
     }
 
     /**
@@ -121,13 +121,13 @@ class PasswordRecoveryController
         } else {
             $_SESSION['notice']
                 = 'Contrasenya actualitzada. Ja pots iniciar sessió.';
-            header('Location: index.php?action=login');
+            header('Location: /login');
 
             return;
         }
 
         header(
-            'Location: index.php?action=resetpassword&token='
+            'Location: /reset-password?token='
                 . urlencode($token),
         );
     }

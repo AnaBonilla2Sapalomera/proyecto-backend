@@ -28,20 +28,20 @@ class ArticleController
     public function index(): void
     {
         $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
-        if ($page === false || $page === null || $page <= 0) {
-            header('Location: index.php?page=1');
+        if ($page === null) {
+            $page = 1;
+        } elseif ($page === false || $page <= 0) {
+            header('Location: /?page=1');
 
             return;
         }
 
         $articles = $this->articleModel->getPaginated($page);
 
-        if (empty($articles)) {
-            if ($page > 1) {
-                header('Location: index.php?page=1');
+        if (empty($articles) && $page > 1) {
+            header('Location: /?page=1');
 
-                return;
-            }
+            return;
         }
 
         $nextPageHasArticles = $this->articleModel->pageHasItems($page + 1);
@@ -55,7 +55,7 @@ class ArticleController
     public function showCreate(): void
     {
         if (!$this->session->isLoggedIn()) {
-            header('Location: index.php?action=login');
+            header('Location: /login');
 
             return;
         }
@@ -74,7 +74,7 @@ class ArticleController
     public function create(): void
     {
         if (!$this->session->isLoggedIn()) {
-            header('Location: index.php?action=login');
+            header('Location: /login');
 
             return;
         }
@@ -90,7 +90,7 @@ class ArticleController
 
         if (!Validator::requiredFields([$title, $content])) {
             $_SESSION['error'] = 'El títol i el contingut són obligatoris.';
-            header('Location: index.php?action=create');
+            header('Location: /article/create');
 
             return;
         }
@@ -99,7 +99,7 @@ class ArticleController
 
         $this->articleModel->create($userId, $title, $content);
 
-        header('Location: index.php?action=index');
+        header('Location: /');
     }
 
     /**
@@ -108,7 +108,7 @@ class ArticleController
     public function showEdit(): void
     {
         if (!$this->session->isLoggedIn()) {
-            header('Location: index.php?action=login');
+            header('Location: /login');
 
             return;
         }
@@ -117,7 +117,7 @@ class ArticleController
         $userId = $this->session->getUserId();
         $article = $id ? $this->articleModel->getById($id) : false;
         if (!$article || $article['user_id'] !== $userId) {
-            header('Location: index.php?page=1');
+            header('Location: /');
 
             return;
         }
@@ -134,7 +134,7 @@ class ArticleController
     public function update(): void
     {
         if (!$this->session->isLoggedIn()) {
-            header('Location: index.php?action=login');
+            header('Location: /login');
 
             return;
         }
@@ -143,7 +143,7 @@ class ArticleController
         $userId = $this->session->getUserId();
         $article = $id ? $this->articleModel->getById($id) : false;
         if (!$article || $article['user_id'] !== $userId) {
-            header('Location: index.php?page=1');
+            header('Location: /');
 
             return;
         }
@@ -155,21 +155,21 @@ class ArticleController
 
         if (!Validator::requiredFields([$title, $content])) {
             $_SESSION['error'] = 'El títol i el contingut són obligatoris.';
-            header("Location: index.php?action=edit&id=$id");
+            header("Location: /article/edit?id=$id");
 
             return;
         }
 
         if (!$this->articleModel->update($id, $userId, $title, $content)) {
             $_SESSION['error'] = "No s'ha pogut actualitzar l'article.";
-            header("Location: index.php?action=edit&id=$id");
+            header("Location: /article/edit?id=$id");
 
             return;
         }
 
         unset($_SESSION['error'], $_SESSION['old']);
 
-        header('Location: index.php?action=index');
+        header('Location: /');
     }
 
     /**
@@ -178,14 +178,14 @@ class ArticleController
     public function delete(): void
     {
         if (!$this->session->isLoggedIn()) {
-            header('Location: index.php?action=login');
+            header('Location: /login');
 
             return;
         }
 
         $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         if (!$id || $id <= 0) {
-            header('Location: index.php?page=1');
+            header('Location: /');
 
             return;
         }
@@ -193,6 +193,6 @@ class ArticleController
         $userId = $this->session->getUserId();
         $this->articleModel->delete($id, $userId);
 
-        header('Location: index.php?action=index');
+        header('Location: /');
     }
 }

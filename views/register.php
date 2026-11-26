@@ -11,13 +11,13 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>PrjF1 Ana - Registre</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <?php require 'nav.php'; ?>
     <h1>Registre</h1>
 
-    <form action="index.php?action=register" method="post" class="form">
+    <form action="/register" method="post" class="form">
 
         <label>
             Nom d'usuari
@@ -57,7 +57,7 @@
             <p class="form-error"><?= htmlspecialchars($error); ?></p>
         <?php } ?>
 
-        <a href="index.php?action=login">Ja tens compte? Inicia sessió</a>
+        <a href="/login">Ja tens compte? Inicia sessió</a>
 
     </form>
 

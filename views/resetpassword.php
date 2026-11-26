@@ -10,12 +10,12 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>PrjF1 Ana - Canviar contrasenya</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <?php require 'nav.php'; ?>
     <h1>Canviar la contrasenya</h1>
-    <form action="index.php?action=resetpassword" method="post" class="form">
+    <form action="/reset-password" method="post" class="form">
         <input type="hidden" name="token" value="<?= htmlspecialchars(
             $token,
         ); ?>">

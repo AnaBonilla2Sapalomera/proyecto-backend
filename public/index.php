@@ -50,11 +50,11 @@ $GLOBALS['session'] = $session;
 
 // router start
 
-$action = $_GET['action'] ?? 'index';
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $method = $_SERVER['REQUEST_METHOD'];
 
-switch ($action) {
-    case 'index':
+switch ($path) {
+    case '/':
         if ($method !== 'GET') {
             http_response_code(405);
             exit('Method Not Allowed');
@@ -63,7 +63,7 @@ switch ($action) {
         $articleController->index();
         break;
 
-    case 'create':
+    case '/article/create':
         if ($method === 'GET') {
             $articleController->showCreate();
         } elseif ($method === 'POST') {
@@ -74,7 +74,7 @@ switch ($action) {
         }
         break;
 
-    case 'edit':
+    case '/article/edit':
         if ($method === 'GET') {
             $articleController->showEdit();
         } elseif ($method === 'POST') {
@@ -85,7 +85,7 @@ switch ($action) {
         }
         break;
 
-    case 'delete':
+    case '/article/delete':
         if ($method !== 'POST') {
             http_response_code(405);
             exit('Method Not Allowed');
@@ -94,7 +94,7 @@ switch ($action) {
         $articleController->delete();
         break;
 
-    case 'register':
+    case '/register':
         if ($method === 'GET') {
             $authController->showRegister();
         } elseif ($method === 'POST') {
@@ -105,7 +105,7 @@ switch ($action) {
         }
         break;
 
-    case 'login':
+    case '/login':
         if ($method === 'GET') {
             $authController->showLogin();
         } elseif ($method === 'POST') {
@@ -116,7 +116,16 @@ switch ($action) {
         }
         break;
 
-    case 'recoverpassword':
+    case '/logout':
+        if ($method !== 'POST') {
+            http_response_code(405);
+            exit('Method Not Allowed');
+        }
+
+        $authController->logout();
+        break;
+
+    case '/recover-password':
         if ($method === 'GET') {
             $passwordRecoveryController->showRecoverPassword();
         } elseif ($method === 'POST') {
@@ -127,7 +136,7 @@ switch ($action) {
         }
         break;
 
-    case 'resetpassword':
+    case '/reset-password':
         if ($method === 'GET') {
             $passwordRecoveryController->showResetPassword();
         } elseif ($method === 'POST') {
@@ -136,15 +145,6 @@ switch ($action) {
             http_response_code(405);
             exit('Method Not Allowed');
         }
-        break;
-
-    case 'logout':
-        if ($method !== 'POST') {
-            http_response_code(405);
-            exit('Method Not Allowed');
-        }
-
-        $authController->logout();
         break;
 
     default:
