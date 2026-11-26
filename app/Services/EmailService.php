@@ -13,7 +13,7 @@ use Symfony\Component\Mime\Email;
 class EmailService
 {
     /**
-     * @param MailerInterface $mailer Servei de transport de correu.
+     * @param MailerInterface $mailer servei de transport de correu
      */
     public function __construct(
         private MailerInterface $mailer,
@@ -21,10 +21,12 @@ class EmailService
 
     /**
      * Envia un correu en format text i HTML.
-     * @param string $recipient Adreça electrònica del destinatari.
-     * @param string $subject Assumpte del missatge.
-     * @param string $message Contingut HTML del missatge.
-     * @return bool Indica si s'ha pogut enviar.
+     *
+     * @param string $recipient adreça electrònica del destinatari
+     * @param string $subject   assumpte del missatge
+     * @param string $message   contingut HTML del missatge
+     *
+     * @return bool indica si s'ha pogut enviar
      */
     public function sendEmail(
         string $recipient,
@@ -34,8 +36,8 @@ class EmailService
         $email = new Email()
             ->from(
                 new Address(
-                    $GLOBALS["cfg"]["mail"]["from_email"],
-                    $GLOBALS["cfg"]["mail"]["from_name"],
+                    $GLOBALS['cfg']['mail']['from_email'],
+                    $GLOBALS['cfg']['mail']['from_name'],
                 ),
             )
             ->to($recipient)
@@ -45,9 +47,11 @@ class EmailService
 
         try {
             $this->mailer->send($email);
+
             return true;
         } catch (TransportExceptionInterface $e) {
-            error_log("Email error: " . $e->getMessage());
+            error_log('Email error: ' . $e->getMessage());
+
             return false;
         }
     }

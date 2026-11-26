@@ -1,7 +1,7 @@
 <?php
 /**
- * @var ?string $error
- * @var ?string $notice
+ * @var ?string               $error
+ * @var ?string               $notice
  * @var array<string, string> $old
  */
 ?>
@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php require "nav.php"; ?>
+    <?php require 'nav.php'; ?>
     <h1>Iniciar sessió</h1>
 
     <form action="index.php?action=login" method="post" class="form">
@@ -25,7 +25,7 @@
             <input
                 type="text"
                 name="email"
-                value="<?= htmlspecialchars($old["email"] ?? "") ?>"
+                value="<?= htmlspecialchars($old['email'] ?? ''); ?>"
                 required
             >
         </label>
@@ -37,12 +37,12 @@
 
         <button type="submit" class="form-button">Iniciar sessió</button>
 
-        <?php if (isset($error)): ?>
-            <p class="form-error"><?= htmlspecialchars($error) ?></p>
-        <?php endif; ?>
-        <?php if (isset($notice)): ?>
-            <p><?= htmlspecialchars($notice) ?></p>
-        <?php endif; ?>
+        <?php if (isset($error)) { ?>
+            <p class="form-error"><?= htmlspecialchars($error); ?></p>
+        <?php } ?>
+        <?php if (isset($notice)) { ?>
+            <p><?= htmlspecialchars($notice); ?></p>
+        <?php } ?>
 
         <a href="index.php?action=recoverpassword">Recuperar la contrasenya</a>
         <a href="index.php?action=register">No tens compte? Registra-t'hi</a>

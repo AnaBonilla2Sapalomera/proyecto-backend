@@ -2,11 +2,11 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use App\Core\Database;
-use App\Core\Session;
 use App\Controllers\ArticleController;
 use App\Controllers\AuthController;
 use App\Controllers\PasswordRecoveryController;
+use App\Core\Database;
+use App\Core\Session;
 use App\Models\ArticleModel;
 use App\Models\UserModel;
 use App\Services\EmailService;
@@ -16,9 +16,9 @@ use Symfony\Component\Mailer\Transport;
 
 Dotenv::createImmutable(dirname(__DIR__))->load();
 
-$GLOBALS["cfg"] = [
-    "database" => require __DIR__ . '/../config/database.php',
-    "mail" => require __DIR__ . '/../config/mail.php',
+$GLOBALS['cfg'] = [
+    'database' => require __DIR__ . '/../config/database.php',
+    'mail' => require __DIR__ . '/../config/mail.php',
 ];
 
 $session = new Session();
@@ -27,7 +27,7 @@ $session->start();
 $database = new Database();
 $connection = $database->connect();
 
-$mailTransport = Transport::fromDsn($GLOBALS["cfg"]["mail"]["dsn"]);
+$mailTransport = Transport::fromDsn($GLOBALS['cfg']['mail']['dsn']);
 $mailer = new Mailer($mailTransport);
 $emailService = new EmailService($mailer);
 
@@ -46,102 +46,102 @@ $passwordRecoveryController = new PasswordRecoveryController(
 
 // para las vistas
 
-$GLOBALS["session"] = $session;
+$GLOBALS['session'] = $session;
 
 // router start
 
-$action = $_GET["action"] ?? "index";
-$method = $_SERVER["REQUEST_METHOD"];
+$action = $_GET['action'] ?? 'index';
+$method = $_SERVER['REQUEST_METHOD'];
 
 switch ($action) {
-    case "index":
-        if ($method !== "GET") {
+    case 'index':
+        if ($method !== 'GET') {
             http_response_code(405);
-            exit("Method Not Allowed");
+            exit('Method Not Allowed');
         }
 
         $articleController->index();
         break;
 
-    case "create":
-        if ($method === "GET") {
+    case 'create':
+        if ($method === 'GET') {
             $articleController->showCreate();
-        } elseif ($method === "POST") {
+        } elseif ($method === 'POST') {
             $articleController->create();
         } else {
             http_response_code(405);
-            exit("Method Not Allowed");
+            exit('Method Not Allowed');
         }
         break;
 
-    case "edit":
-        if ($method === "GET") {
+    case 'edit':
+        if ($method === 'GET') {
             $articleController->showEdit();
-        } elseif ($method === "POST") {
+        } elseif ($method === 'POST') {
             $articleController->update();
         } else {
             http_response_code(405);
-            exit("Method Not Allowed");
+            exit('Method Not Allowed');
         }
         break;
 
-    case "delete":
-        if ($method !== "POST") {
+    case 'delete':
+        if ($method !== 'POST') {
             http_response_code(405);
-            exit("Method Not Allowed");
+            exit('Method Not Allowed');
         }
 
         $articleController->delete();
         break;
 
-    case "register":
-        if ($method === "GET") {
+    case 'register':
+        if ($method === 'GET') {
             $authController->showRegister();
-        } elseif ($method === "POST") {
+        } elseif ($method === 'POST') {
             $authController->register();
         } else {
             http_response_code(405);
-            exit("Method Not Allowed");
+            exit('Method Not Allowed');
         }
         break;
 
-    case "login":
-        if ($method === "GET") {
+    case 'login':
+        if ($method === 'GET') {
             $authController->showLogin();
-        } elseif ($method === "POST") {
+        } elseif ($method === 'POST') {
             $authController->login();
         } else {
             http_response_code(405);
-            exit("Method Not Allowed");
+            exit('Method Not Allowed');
         }
         break;
 
-    case "recoverpassword":
-        if ($method === "GET") {
+    case 'recoverpassword':
+        if ($method === 'GET') {
             $passwordRecoveryController->showRecoverPassword();
-        } elseif ($method === "POST") {
+        } elseif ($method === 'POST') {
             $passwordRecoveryController->requestPasswordRecovery();
         } else {
             http_response_code(405);
-            exit("Method Not Allowed");
+            exit('Method Not Allowed');
         }
         break;
 
-    case "resetpassword":
-        if ($method === "GET") {
+    case 'resetpassword':
+        if ($method === 'GET') {
             $passwordRecoveryController->showResetPassword();
-        } elseif ($method === "POST") {
+        } elseif ($method === 'POST') {
             $passwordRecoveryController->resetPassword();
         } else {
             http_response_code(405);
-            exit("Method Not Allowed");
+            exit('Method Not Allowed');
         }
         break;
 
-    case "logout":
-        if ($method !== "POST") {
+    case 'logout':
+        if ($method !== 'POST') {
             http_response_code(405);
-            exit("Method Not Allowed");
+            exit('Method Not Allowed');
         }
 
         $authController->logout();
@@ -149,6 +149,6 @@ switch ($action) {
 
     default:
         http_response_code(404);
-        exit("Not Found");
+        exit('Not Found');
         break;
 }

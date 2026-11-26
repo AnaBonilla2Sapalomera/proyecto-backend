@@ -1,20 +1,20 @@
 <?php
 /**
- * @var int $page
+ * @var int               $page
  * @var array<int, mixed> $articles
- * @var bool $nextPageHasArticles
+ * @var bool              $nextPageHasArticles
  */
 
 // Obtenir els paràmetres actuals de la URL
 $query = $_GET;
 
 // Crear la URL de la pàgina anterior
-$query["page"] = max(1, $page - 1);
-$prevUrl = "?" . http_build_query($query);
+$query['page'] = max(1, $page - 1);
+$prevUrl = '?' . http_build_query($query);
 
 // Crear la URL de la pàgina següent
-$query["page"] = $page + 1;
-$nextUrl = "?" . http_build_query($query);
+$query['page'] = $page + 1;
+$nextUrl = '?' . http_build_query($query);
 
 // Comprovar si els enllaços estan habilitats
 $prevDisabled = $page <= 1;
@@ -30,7 +30,7 @@ $nextDisabled = !$nextPageHasArticles;
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php require "nav.php"; ?>
+    <?php require 'nav.php'; ?>
     <h1>Llista d'articles</h1>
     <table>
         <thead>
@@ -42,50 +42,50 @@ $nextDisabled = !$nextPageHasArticles;
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($articles as $article): ?>
+            <?php foreach ($articles as $article) { ?>
                 <tr>
-                    <td><?= htmlspecialchars($article["id"]) ?></td>
-                    <td><?= htmlspecialchars($article["title"]) ?></td>
+                    <td><?= htmlspecialchars($article['id']); ?></td>
+                    <td><?= htmlspecialchars($article['title']); ?></td>
                     <td style="width: 60%"><?= htmlspecialchars(
-                        $article["content"],
-                    ) ?></td>
+                        $article['content'],
+                    ); ?></td>
                     <td>
                         <?php if (
-                            $GLOBALS["session"]->isLoggedIn() &&
-                            $GLOBALS["session"]->getUserId() ==
-                                $article["user_id"]
-                        ): ?>
+                            $GLOBALS['session']->isLoggedIn()
+                            && $GLOBALS['session']->getUserId()
+                                == $article['user_id']
+                        ) { ?>
                             <a href="?action=edit&id=<?= $article[
-                                "id"
-                            ] ?>">Editar</a>
+                                'id'
+                            ]; ?>">Editar</a>
                             -
                             <form action="index.php?action=delete" method="post" style="display: inline">
                                 <input type="hidden" name="id" value="<?= htmlspecialchars(
-                                    $article["id"],
-                                ) ?>">
+                                    $article['id'],
+                                ); ?>">
                                 <button type="submit" class="articles-button">Eliminar</button>
                             </form>
-                        <?php endif; ?>
+                        <?php } ?>
                     </td>
                 </tr>
-            <?php endforeach; ?>
+            <?php } ?>
         </tbody>
     </table>
 
     <nav>
-        <?php if ($prevDisabled): ?>
+        <?php if ($prevDisabled) { ?>
             <span>Anterior</span>
-        <?php else: ?>
-            <a href="<?= htmlspecialchars($prevUrl) ?>">Anterior</a>
-        <?php endif; ?>
+        <?php } else { ?>
+            <a href="<?= htmlspecialchars($prevUrl); ?>">Anterior</a>
+        <?php } ?>
 
         <span> - </span>
 
-        <?php if ($nextDisabled): ?>
+        <?php if ($nextDisabled) { ?>
             <span>Següent</span>
-        <?php else: ?>
-            <a href="<?= htmlspecialchars($nextUrl) ?>">Següent</a>
-        <?php endif; ?>
+        <?php } else { ?>
+            <a href="<?= htmlspecialchars($nextUrl); ?>">Següent</a>
+        <?php } ?>
     </nav>
 </body>
 </html>

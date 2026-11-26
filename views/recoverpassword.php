@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php require "nav.php"; ?>
+    <?php require 'nav.php'; ?>
     <h1>Recuperar la contrasenya</h1>
     <p>Introdueix el correu del teu compte i t'enviarem un enllaç per canviar-la.</p>
     <form action="index.php?action=recoverpassword" method="post" class="form">
@@ -22,12 +22,12 @@
             <input type="email" name="email" autocomplete="email" required>
         </label>
         <button type="submit" class="form-button">Enviar enllaç</button>
-        <?php if (isset($error)): ?>
-            <p class="form-error"><?= htmlspecialchars($error) ?></p>
-        <?php endif; ?>
-        <?php if (isset($notice)): ?>
-            <p><?= htmlspecialchars($notice) ?></p>
-        <?php endif; ?>
+        <?php if (isset($error)) { ?>
+            <p class="form-error"><?= htmlspecialchars($error); ?></p>
+        <?php } ?>
+        <?php if (isset($notice)) { ?>
+            <p><?= htmlspecialchars($notice); ?></p>
+        <?php } ?>
         <a href="index.php?action=login">Tornar a iniciar sessió</a>
     </form>
 </body>

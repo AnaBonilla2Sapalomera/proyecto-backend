@@ -1,6 +1,6 @@
 <?php
 /**
- * @var ?string $error
+ * @var ?string               $error
  * @var array<string, string> $old
  */
 ?>
@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php require "nav.php"; ?>
+    <?php require 'nav.php'; ?>
     <h1>Registre</h1>
 
     <form action="index.php?action=register" method="post" class="form">
@@ -25,8 +25,8 @@
                 type="text"
                 name="username"
                 value="<?= htmlspecialchars(
-                    $old["username"] ?? "",
-                ) ?>"
+                    $old['username'] ?? '',
+                ); ?>"
                 required
             >
         </label>
@@ -36,7 +36,7 @@
             <input
                 type="email"
                 name="email"
-                value="<?= htmlspecialchars($old["email"] ?? "") ?>"
+                value="<?= htmlspecialchars($old['email'] ?? ''); ?>"
                 required
             >
         </label>
@@ -53,9 +53,9 @@
 
         <button type="submit" class="form-button">Registrar-se</button>
 
-        <?php if (isset($error)): ?>
-            <p class="form-error"><?= htmlspecialchars($error) ?></p>
-        <?php endif; ?>
+        <?php if (isset($error)) { ?>
+            <p class="form-error"><?= htmlspecialchars($error); ?></p>
+        <?php } ?>
 
         <a href="index.php?action=login">Ja tens compte? Inicia sessió</a>
 

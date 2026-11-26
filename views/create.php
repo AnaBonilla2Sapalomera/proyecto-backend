@@ -1,6 +1,6 @@
 <?php
 /**
- * @var ?string $error
+ * @var ?string               $error
  * @var array<string, string> $old
  */
 ?>
@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php require "nav.php"; ?>
+    <?php require 'nav.php'; ?>
     <h1>Crear article</h1>
     <form action="index.php?action=create" method="post" class="form">
         <label>
@@ -22,18 +22,18 @@
             <input
                 name="title"
                 required
-                value="<?= htmlspecialchars($old["title"] ?? "") ?>"
+                value="<?= htmlspecialchars($old['title'] ?? ''); ?>"
             />
         </label>
         <label>
             <span>Contingut</span>
             <textarea name="content" required><?= htmlspecialchars(
-                $old["content"] ?? "",
-            ) ?></textarea>
+                $old['content'] ?? '',
+            ); ?></textarea>
         </label>
-        <?php if ($error !== null): ?>
-            <p class="form-error">Error: <?= htmlspecialchars($error) ?></p>
-        <?php endif; ?>
+        <?php if ($error !== null) { ?>
+            <p class="form-error">Error: <?= htmlspecialchars($error); ?></p>
+        <?php } ?>
         <button type="submit" class="form-button">Enviar</button>
     </form>
 </body>

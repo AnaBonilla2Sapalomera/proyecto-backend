@@ -9,13 +9,15 @@ class Validator
 {
     /**
      * Comprova que els camps obligatoris no estiguin buits ni continguin espais.
-     * @param array<string> $fields Valors dels camps obligatoris.
-     * @return bool Indica si tots els camps contenen informació.
+     *
+     * @param array<string> $fields valors dels camps obligatoris
+     *
+     * @return bool indica si tots els camps contenen informació
      */
     public static function requiredFields(array $fields): bool
     {
         foreach ($fields as $field) {
-            if (trim($field) === "") {
+            if (trim($field) === '') {
                 return false;
             }
         }
@@ -25,8 +27,10 @@ class Validator
 
     /**
      * Comprova que el correu electrònic tingui un format vàlid.
-     * @param string $email Adreça electrònica que es vol validar.
-     * @return bool Indica si el format és vàlid.
+     *
+     * @param string $email adreça electrònica que es vol validar
+     *
+     * @return bool indica si el format és vàlid
      */
     public static function email(string $email): bool
     {
@@ -35,9 +39,11 @@ class Validator
 
     /**
      * Comprova que les dues contrasenyes coincideixin.
-     * @param string $password Contrasenya introduïda.
-     * @param string $confirmPassword Confirmació de la contrasenya.
-     * @return bool Indica si les dues contrasenyes coincideixen.
+     *
+     * @param string $password        contrasenya introduïda
+     * @param string $confirmPassword confirmació de la contrasenya
+     *
+     * @return bool indica si les dues contrasenyes coincideixen
      */
     public static function passwordConfirmation(
         string $password,
@@ -48,15 +54,17 @@ class Validator
 
     /**
      * Comprova que la contrasenya compleixi els requisits de seguretat.
-     * @param string $password Contrasenya que es vol validar.
-     * @return bool Indica si compleix els requisits de seguretat.
+     *
+     * @param string $password contrasenya que es vol validar
+     *
+     * @return bool indica si compleix els requisits de seguretat
      */
     public static function passwordStrength(string $password): bool
     {
-        return strlen($password) >= 10 &&
-            preg_match("/[A-Z]/", $password) === 1 &&
-            preg_match("/[a-z]/", $password) === 1 &&
-            preg_match("/[0-9]/", $password) === 1 &&
-            preg_match("/[^a-zA-Z0-9]/", $password) === 1;
+        return strlen($password) >= 10
+            && preg_match('/[A-Z]/', $password) === 1
+            && preg_match('/[a-z]/', $password) === 1
+            && preg_match('/[0-9]/', $password) === 1
+            && preg_match('/[^a-zA-Z0-9]/', $password) === 1;
     }
 }

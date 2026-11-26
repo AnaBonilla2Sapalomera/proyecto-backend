@@ -13,8 +13,9 @@ class ArticleController
 {
     /**
      * Inicialitza el model d'articles i la sessió.
-     * @param ArticleModel $articleModel Model que consulta i modifica els articles.
-     * @param Session $session Servei que comprova l'estat de la sessió.
+     *
+     * @param ArticleModel $articleModel model que consulta i modifica els articles
+     * @param Session      $session      servei que comprova l'estat de la sessió
      */
     public function __construct(
         private ArticleModel $articleModel,
@@ -26,9 +27,10 @@ class ArticleController
      */
     public function index(): void
     {
-        $page = filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT);
+        $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
         if ($page === false || $page === null || $page <= 0) {
-            header("Location: index.php?page=1");
+            header('Location: index.php?page=1');
+
             return;
         }
 
@@ -36,14 +38,15 @@ class ArticleController
 
         if (empty($articles)) {
             if ($page > 1) {
-                header("Location: index.php?page=1");
+                header('Location: index.php?page=1');
+
                 return;
             }
         }
 
         $nextPageHasArticles = $this->articleModel->pageHasItems($page + 1);
 
-        require __DIR__ . "/../../views/articles.php";
+        require __DIR__ . '/../../views/articles.php';
     }
 
     /**
@@ -52,16 +55,17 @@ class ArticleController
     public function showCreate(): void
     {
         if (!$this->session->isLoggedIn()) {
-            header("Location: index.php?action=login");
+            header('Location: index.php?action=login');
+
             return;
         }
 
-        $error = $_SESSION["error"] ?? null;
-        $old = $_SESSION["old"] ?? [];
+        $error = $_SESSION['error'] ?? null;
+        $old = $_SESSION['old'] ?? [];
 
-        unset($_SESSION["error"], $_SESSION["old"]);
+        unset($_SESSION['error'], $_SESSION['old']);
 
-        require __DIR__ . "/../../views/create.php";
+        require __DIR__ . '/../../views/create.php';
     }
 
     /**
@@ -70,30 +74,32 @@ class ArticleController
     public function create(): void
     {
         if (!$this->session->isLoggedIn()) {
-            header("Location: index.php?action=login");
+            header('Location: index.php?action=login');
+
             return;
         }
 
         $userId = $this->session->getUserId();
-        $title = trim($_POST["title"] ?? "");
-        $content = trim($_POST["content"] ?? "");
+        $title = trim($_POST['title'] ?? '');
+        $content = trim($_POST['content'] ?? '');
 
-        $_SESSION["old"] = [
-            "title" => $title,
-            "content" => $content,
+        $_SESSION['old'] = [
+            'title' => $title,
+            'content' => $content,
         ];
 
         if (!Validator::requiredFields([$title, $content])) {
-            $_SESSION["error"] = "El títol i el contingut són obligatoris.";
-            header("Location: index.php?action=create");
+            $_SESSION['error'] = 'El títol i el contingut són obligatoris.';
+            header('Location: index.php?action=create');
+
             return;
         }
 
-        unset($_SESSION["old"]);
+        unset($_SESSION['old']);
 
         $this->articleModel->create($userId, $title, $content);
 
-        header("Location: index.php?action=index");
+        header('Location: index.php?action=index');
     }
 
     /**
@@ -102,22 +108,24 @@ class ArticleController
     public function showEdit(): void
     {
         if (!$this->session->isLoggedIn()) {
-            header("Location: index.php?action=login");
+            header('Location: index.php?action=login');
+
             return;
         }
 
-        $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         $userId = $this->session->getUserId();
         $article = $id ? $this->articleModel->getById($id) : false;
-        if (!$article || $article["user_id"] !== $userId) {
-            header("Location: index.php?page=1");
+        if (!$article || $article['user_id'] !== $userId) {
+            header('Location: index.php?page=1');
+
             return;
         }
 
-        $error = $_SESSION["error"] ?? null;
-        $old = $_SESSION["old"] ?? [];
-        unset($_SESSION["error"], $_SESSION["old"]);
-        require __DIR__ . "/../../views/edit.php";
+        $error = $_SESSION['error'] ?? null;
+        $old = $_SESSION['old'] ?? [];
+        unset($_SESSION['error'], $_SESSION['old']);
+        require __DIR__ . '/../../views/edit.php';
     }
 
     /**
@@ -126,38 +134,42 @@ class ArticleController
     public function update(): void
     {
         if (!$this->session->isLoggedIn()) {
-            header("Location: index.php?action=login");
+            header('Location: index.php?action=login');
+
             return;
         }
 
-        $id = filter_input(INPUT_POST, "id", FILTER_VALIDATE_INT);
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         $userId = $this->session->getUserId();
         $article = $id ? $this->articleModel->getById($id) : false;
-        if (!$article || $article["user_id"] !== $userId) {
-            header("Location: index.php?page=1");
+        if (!$article || $article['user_id'] !== $userId) {
+            header('Location: index.php?page=1');
+
             return;
         }
 
-        $title = trim($_POST["title"] ?? "");
-        $content = trim($_POST["content"] ?? "");
+        $title = trim($_POST['title'] ?? '');
+        $content = trim($_POST['content'] ?? '');
 
-        $_SESSION["old"] = ["title" => $title, "content" => $content];
+        $_SESSION['old'] = ['title' => $title, 'content' => $content];
 
         if (!Validator::requiredFields([$title, $content])) {
-            $_SESSION["error"] = "El títol i el contingut són obligatoris.";
+            $_SESSION['error'] = 'El títol i el contingut són obligatoris.';
             header("Location: index.php?action=edit&id=$id");
+
             return;
         }
 
         if (!$this->articleModel->update($id, $userId, $title, $content)) {
-            $_SESSION["error"] = "No s'ha pogut actualitzar l'article.";
+            $_SESSION['error'] = "No s'ha pogut actualitzar l'article.";
             header("Location: index.php?action=edit&id=$id");
+
             return;
         }
 
-        unset($_SESSION["error"], $_SESSION["old"]);
+        unset($_SESSION['error'], $_SESSION['old']);
 
-        header("Location: index.php?action=index");
+        header('Location: index.php?action=index');
     }
 
     /**
@@ -166,19 +178,21 @@ class ArticleController
     public function delete(): void
     {
         if (!$this->session->isLoggedIn()) {
-            header("Location: index.php?action=login");
+            header('Location: index.php?action=login');
+
             return;
         }
 
-        $id = filter_input(INPUT_POST, "id", FILTER_VALIDATE_INT);
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         if (!$id || $id <= 0) {
-            header("Location: index.php?page=1");
+            header('Location: index.php?page=1');
+
             return;
         }
 
         $userId = $this->session->getUserId();
         $this->articleModel->delete($id, $userId);
 
-        header("Location: index.php?action=index");
+        header('Location: index.php?action=index');
     }
 }

@@ -1,11 +1,11 @@
 <?php
 /**
- * @var array<string, mixed> $article
- * @var ?string $error
+ * @var array<string, mixed>  $article
+ * @var ?string               $error
  * @var array<string, string> $old
  */
-$title = $old["title"] ?? $article["title"];
-$content = $old["content"] ?? $article["content"];
+$title = $old['title'] ?? $article['title'];
+$content = $old['content'] ?? $article['content'];
 ?>
 <!DOCTYPE html>
 <html lang="ca">
@@ -16,27 +16,27 @@ $content = $old["content"] ?? $article["content"];
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php require "nav.php"; ?>
+    <?php require 'nav.php'; ?>
     <h1>Editar article</h1>
     <form action="index.php?action=edit" method="post" class="form">
         <input type="hidden" name="id" value="<?= htmlspecialchars(
-            $article["id"],
-        ) ?>">
+            $article['id'],
+        ); ?>">
         <label>
             <span>Títol</span>
             <input name="title" required value="<?= htmlspecialchars(
                 $title,
-            ) ?>">
+            ); ?>">
         </label>
         <label>
             <span>Contingut</span>
             <textarea name="content" required><?= htmlspecialchars(
                 $content,
-            ) ?></textarea>
+            ); ?></textarea>
         </label>
-        <?php if (isset($error)): ?>
-            <p class="form-error"><?= htmlspecialchars($error) ?></p>
-        <?php endif; ?>
+        <?php if (isset($error)) { ?>
+            <p class="form-error"><?= htmlspecialchars($error); ?></p>
+        <?php } ?>
         <button type="submit" class="form-button">Desar els canvis</button>
         <a href="index.php?action=index">Cancel·lar</a>
     </form>

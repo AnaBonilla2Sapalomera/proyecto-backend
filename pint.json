@@ -1,0 +1,16 @@
+{
+	"preset": "symfony",
+	"rules": {
+		"concat_space": {
+			"spacing": "one"
+		},
+		"echo_tag_syntax": {
+			"format": "short"
+		},
+		"operator_linebreak": {
+			"position": "beginning"
+		},
+		"single_line_empty_body": true,
+		"yoda_style": false
+	}
+}
