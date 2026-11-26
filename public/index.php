@@ -1,6 +1,6 @@
 <?php
 
-require "vendor/autoload.php";
+require __DIR__ . '/../vendor/autoload.php';
 
 use App\Core\Database;
 use App\Core\Session;
@@ -14,11 +14,11 @@ use Dotenv\Dotenv;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport;
 
-Dotenv::createImmutable(__DIR__)->load();
+Dotenv::createImmutable(dirname(__DIR__))->load();
 
 $GLOBALS["cfg"] = [
-    "database" => require "config/database.php",
-    "mail" => require "config/mail.php",
+    "database" => require __DIR__ . '/../config/database.php',
+    "mail" => require __DIR__ . '/../config/mail.php',
 ];
 
 $session = new Session();
